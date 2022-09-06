@@ -1,0 +1,71 @@
+1. Walk through slides - it's common to have a separate folder for your front end and back end files
+
+2. Setup npm
+    - npm init -y
+        - package.json should appear
+        - Don't mess with this yet, but this is what it is
+    - Install Nodemon if they haven't
+        - npm i -g nodemon
+        - sudo npm i -g nodemon 
+            - may ask for password 
+    - What package do we use to build a server file? (express)
+        - run npm i express cors
+        - What is cors? Cross Origin Resource Sharing
+    - You should now see the dependencies in the package.json
+    - What is package.lock?
+    - What are node_modules?
+
+3. Create .gitignore and add node_modules
+
+4. Create folder for server and a server.js
+
+5. Write out boilerplate
+    - require express and cors packages
+    - Invoke express
+    - Middleware
+    - Listen
+
+6. Run nodemon server/server.js
+    - Show errors
+    - You need to put the filepath to server file when using nodemon (unless updating main in package.json)
+
+7. Open index.html with live server
+    - Glance over the index.js to explain that we're writing endpoints to fit the pre-built front end
+
+8. Set up mock DB array in server
+    - Can ask for ideas, but party food is probably easiest
+
+9. Build endpoint to get all items from our dummyDatabase
+    - Structure is very similar to axios requests
+        - instead of axios.methodName, we do app.methodName
+        - Our first argument is the endpoint 
+            - This needs to match you rfront end exactly
+            - Normally, you'll make up your own endpoints. Since the front end is prebuilt, we have
+            to *match* those predefined endpoints
+        - Next, we build our callback function
+            - This will take two parameters: req and res
+        - Before dealing with those parameters, set up a console.log to show that the endpoint is hit
+        - console.log(req) to show them just how much information we get when processing an axios request
+        - Explain that we only really care about req.body, req.params, and req.query
+            - Since we don't have any body, param, or queries on our request, they'll be blank when we log them
+        - Res is the response object that we're sending back
+        - At the bare minimum, these responses need a status code
+            - res.status(200) === This was a successful request
+            - .send(dummyDatabase) === What we want to send in addition to the status
+        - Now show how it displays on HTML on get inventory button
+    
+    - app.get('/api/inventory', (req, res) => {res.status(200).send(dummyDatabase)})
+
+10. Setup functionality to test params
+    - Same endpoint, but we can tell our server to look for an endpoint by adding a /:id
+    - What data type is our id? (console.log)
+    - Set up index variable for the number version of our param
+        - Try logging a value from our array with new variable
+    - res.status(200).send(dummyDatabase[index])
+
+11. Add if statment to check for query inside main function functionality to test query
+    - Remember, our req.query object will exist no matter what, but we can check to see if
+    certain properties have a value with dot notation
+    - Once we have a value in our query, we can filter our dummyDatabase and only send back the 
+    items that match
+        - If there is time, add .toLowerCase() to make it easier
